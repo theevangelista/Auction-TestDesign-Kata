@@ -13,8 +13,7 @@ public class AuctionMessageTranslator {
     public void processMessage(String message) {
 
         if (message.contains("CLOSE")) {
-            // bug: should be auctionEventListener::auctionClosed
-            listener.auctionFailed();
+            listener.auctionClosed();
         } else if (message.contains("PRICE")) {
             var data = new HashMap<String, String>();
             for (var element : message.split(";")) {
@@ -25,8 +24,7 @@ public class AuctionMessageTranslator {
             var increment = Integer.parseInt(data.get("Increment"));
             var bidder = data.get("Bidder");
 
-            // bug: should be listener.currentPrice(currentPrice)
-            listener.auctionClosed();
+            listener.currentPrice(currentPrice);
         } else {
             listener.auctionFailed();
         }
